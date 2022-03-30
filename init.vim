@@ -68,7 +68,7 @@ call plug#begin('~/.config/nvim/plugged')
   " Plug 'EdenEast/nightfox.nvim'
   Plug 'arcticicestudio/nord-vim'
   " lsp 代码补全
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
   " syntax highlight
   Plug 'nvim-treesitter/nvim-treesitter'
   " Status line
@@ -231,7 +231,7 @@ let g:nvim_tree_group_empty = 1
 let g:nvim_tree_create_in_closed_folder = 1
 lua << EOF
 require'nvim-tree'.setup {
-  auto_close = true,
+  -- auto_close = true,
   -- update_cwd = true,
   update_focused_file = {
     enable      = true,
@@ -427,4 +427,6 @@ nmap cp ciw<C-r>0<ESC>
 
 nmap <leader>i :e $MYVIMRC<CR>
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 

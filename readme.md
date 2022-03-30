@@ -12,11 +12,12 @@ make -j8 && make install
 # install nodejs
 yum install -y nodejs
 yum install npm
+npm install --global yarn
 
 # install python3
-https://www.python.org/downloads/release/python-357/
-tar xzf Python-3.5.7.tgz
-cd Python-3.5.7
+https://www.python.org/downloads/release/python-3610/
+tar xzf Python-3.6.10.tgz
+cd Python-3.6.10
 ./configure --prefix=/usr/local
 make -j8 && make install
 
@@ -26,6 +27,11 @@ yum install python-pip
 # 添加nvim的python支持
 pip2 install --user --upgrade neovim
 pip3 install --user --upgrade neovim
+
+# 
+cd ~/.config
+ssh-keygen -t ecdsa
+git clone git@github.com:HDX180/nvim.git
 
 # install nvim
 git clone -b release-0.6 https://github.com/neovim/neovim.git
@@ -49,8 +55,7 @@ cd llvm
 mkdir build
 cd build
 cmake ../llvm -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=clang
-make -j4
-make install
+make -j4 && make install
 
 # install ccls
 git clone --depth=1 --recursive https://github.com/MaskRay/ccls
