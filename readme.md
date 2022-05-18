@@ -71,3 +71,31 @@ npm install --global pure-prompt
 autoload -U promptinit; promptinit
 prompt pure
 
+# 升级git
+yum remove git
+yum --enablerepo=tlinux-testing install git
+
+## install tig
+https://jonas.github.io/tig/INSTALL.html
+tar xvf
+make prefix=/usr/local
+make install prefix=/usr/local
+
+## install bazel
+yum install -y java-1.8.0-openjdk*
+mkdir -p /root/env/bazel
+wget https://github.com/bazelbuild/bazel/releases/download/4.1.0/bazel-4.1.0-installer-linux-x86_64.sh -O /root/env/bazel/bazel.sh
+chmod +x /root/env/bazel/bazel.sh
+/root/env/bazel/bazel.sh > /dev/null
+rm -rf /root/env
+bazel --version
+
+## compile.json for bazel 
+### bazel 4.0以上
+INSTALL_DIR="/usr/local/bin"
+VERSION="0.5.2"
+(
+  cd "${INSTALL_DIR}" \
+  && curl -L "https://github.com/grailbio/bazel-compilation-database/archive/${VERSION}.tar.gz" | tar -xz \
+  && ln -f -s "${INSTALL_DIR}/bazel-compilation-database-${VERSION}/generate.py" bazel-compdb
+)
