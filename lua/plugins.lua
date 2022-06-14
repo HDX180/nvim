@@ -35,7 +35,7 @@ return require('packer').startup(function()
   }
 
   -- LSP
-  use "neovim/nvim-lspconfig" -- enable LSP
+  use "neovim/nvim-lspconfig"
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
   use 'hrsh7th/nvim-cmp'
   use "hrsh7th/cmp-buffer" -- buffer completions
@@ -46,9 +46,8 @@ return require('packer').startup(function()
   -- better quickfix
   use "folke/trouble.nvim"
 
-  -- project & session
+  -- session
   use "Shatur/neovim-session-manager"
-  use "ahmedkhalf/project.nvim"
 
   use 'morhetz/gruvbox'
   -- 启动页
@@ -65,7 +64,14 @@ return require('packer').startup(function()
   -- move smooth
   use 'karb94/neoscroll.nvim'
 
+  -- switch h/cpp
   use 'derekwyatt/vim-fswitch'
 
-  use 'tpope/vim-fugitive'
+  -- git 
+  use 'sindrets/diffview.nvim'
+  use 'f-person/git-blame.nvim'
+
+  -- highlight cursor word
+  use 'RRethy/vim-illuminate'
+
 end)

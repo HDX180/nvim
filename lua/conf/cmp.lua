@@ -161,5 +161,4 @@ cmp.setup.cmdline(':', {
   })
 })
 
-
 cmp.setup(cmp_config)

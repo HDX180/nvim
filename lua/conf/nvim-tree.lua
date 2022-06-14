@@ -1,23 +1,23 @@
-vim.g.nvim_tree_icons = {
-  default = "",
-  symlink = "",
-  git = {
-    unstaged = "",
-    staged = "S",
-    unmerged = "",
-    renamed = "➜",
-    deleted = "",
-    untracked = "U",
-    ignored = "◌",
-  },
-  folder = {
-    default = "",
-    open = "",
-    empty = "",
-    empty_open = "",
-    symlink = "",
-  },
-}
+-- vim.g.nvim_tree_icons = {
+--   default = "",
+--   symlink = "",
+--   git = {
+--     unstaged = "",
+--     staged = "S",
+--     unmerged = "",
+--     renamed = "➜",
+--     deleted = "",
+--     untracked = "U",
+--     ignored = "◌",
+--   },
+--   folder = {
+--     default = "",
+--     open = "",
+--     empty = "",
+--     empty_open = "",
+--     symlink = "",
+--   },
+-- }
 
 local status_ok, nvim_tree = pcall(require, "nvim-tree")
 if not status_ok then
@@ -41,7 +41,7 @@ nvim_tree.setup({
     width = 30,
     height = 30,
     hide_root_folder = true,
-    side = "right",
+    side = "left",
     preserve_window_proportions = false,
     number = false,
     relativenumber = false,
@@ -86,7 +86,7 @@ nvim_tree.setup({
     exclude = {},
   },
   git = {
-    enable = true,
+    enable = false,
     ignore = true,
     timeout = 400,
   },
@@ -124,13 +124,12 @@ nvim_tree.setup({
 }
 )
 
---
 -- with relative path
 require "nvim-tree.events".on_file_created(function(file) vim.cmd("edit " .. file.fname) end)
 
 -- auto close feature
 -- vim.cmd(
---   [[
+-- [[
 --     autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 -- ]]
 -- )

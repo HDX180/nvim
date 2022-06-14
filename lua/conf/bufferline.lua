@@ -7,7 +7,7 @@ end
 bufferline.setup ({
     options = {
     mode = "buffers", -- set to "tabs" to only show tabpages instead
-    numbers = "ordinal", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
+    numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
     --- @deprecated, please specify numbers as a function to customize the styling
     -- number_style = "superscript", --| "subscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
     close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
@@ -33,7 +33,7 @@ bufferline.setup ({
         return vim.fn.fnamemodify(buf.name, ':t:r')
       end
     end,
-    max_name_length = 18,
+    max_name_length = 30,
     max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
     tab_size = 18,
     diagnostics = false, --| "nvim_lsp" | "coc",

@@ -15,18 +15,18 @@ local diagnostics = {
   symbols = { error = " ", warn = " " },
   colored = false,
   update_in_insert = false,
-  always_visible = true,
+  always_visible = false,
 }
 
 local diff = {
   "diff",
-  colored = true,
-  symbols = { added = "  ", modified = " ", removed = " " },
-  diff_color = {
-    added = { fg = "#98be65" },
-    modified = { fg = "#ecbe7b" },
-    removed = { fg = "#ec5f67" },
-  },
+  symbols = { added = " ", modified = " ", removed = " " },
+  -- diff_color = {
+  --   added = { fg = "#98be65" },
+  --   modified = { fg = "#ecbe7b" },
+  --   removed = { fg = "#ec5f67" },
+  -- },
+  colored = false,
   cond = hide_in_width
 }
 
@@ -41,17 +41,18 @@ local mode = {
 local file_name = {
   'filename',
   file_status = true, -- Displays file status (readonly status, modified status)
-  path = 1, -- 0: Just the filename
+  path = 0, -- 0: Just the filename
   -- 1: Relative path
   -- 2: Absolute path
 
   shorting_target = 40, -- Shortens path to leave 40 spaces in the window
   -- for other components. (terrible name, any suggestions?)
   symbols = {
-    modified = '[+]', -- Text to show when the file is modified.
-    readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
+    modified = ' ●', -- Text to show when the file is modified.
+    readonly = ' [ReadOnly]', -- Text to show when the file is non-modifiable or readonly.
     unnamed = '[No Name]', -- Text to show for unnamed buffers.
   },
+  -- color = { fg = "#a89bb9", gui='bold,italic'}
 }
 
 local filetype = {
@@ -68,19 +69,27 @@ local branch = {
 
 local location = {
   "location",
-  padding = 0.5,
+  padding = { left = 1, right = 0 }
+}
+
+local fileformat = {
+  "fileformat",
+  padding = { left = 1, right = 2 }
 }
 
 -- cool function for progress
-local progress = function()
-  local current_line = vim.fn.line(".")
-  local total_lines = vim.fn.line("$")
-  -- local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
-  local chars = { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁", " ", }
-  local line_ratio = current_line / total_lines
-  local index = math.ceil(line_ratio * #chars)
-  return chars[index]
-end
+local progress = {
+  function()
+    local current_line = vim.fn.line(".")
+    local total_lines = vim.fn.line("$")
+    -- local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+    local chars = { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁", " __", }
+    local line_ratio = current_line / total_lines
+    local index = math.ceil(line_ratio * #chars)
+    return chars[index]
+  end,
+  color = { fg = "#ebdbb2" }
+}
 
 local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
@@ -145,9 +154,9 @@ local mysplit = function(str, delimiter)
 end
 
 
-local project = function()
+local session = function()
   local list = mysplit(vim.fn.fnamemodify(vim.v.this_session, ":t"), "__")
-  return list[#list]
+  return vim.bo.filetype == " toggleterm" and "term(" .. vim.b.toggle_number .. ") " or " " .. list[#list] .. " "
 end
 
 -- add gps module to get the position information
@@ -161,19 +170,24 @@ lualine.setup({
     section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "" },
     -- section_separators = { left = "", right = "" },
-    disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
+    -- disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline", "toggleterm" },
+    disabled_filetypes = { "alpha", "dashboard", "Outline" },
     always_divide_middle = true,
+    globalstatus = true,
   },
   sections = {
     -- lualine_a = { branch, diagnostics },
-    lualine_a = { branch },
-    lualine_b = { mode },
+    lualine_a = { mode },
+    lualine_b = { session },
     -- lualine_c = { file_name },
-    lualine_c = { project },
+    lualine_c = { branch, diff,
+      function()
+        return "%="
+      end, file_name },
 
     lualine_x = { diagnostics },
-    lualine_y = { diff, spaces, "encoding", filetype, "fileformat" },
-    lualine_z = { location },
+    lualine_y = { spaces, "encoding", filetype, fileformat },
+    lualine_z = { location, progress },
     -- lualine_z = { progress },
   },
   inactive_sections = {

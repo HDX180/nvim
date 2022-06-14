@@ -187,6 +187,9 @@ telescope.setup {
         -- even more opts
       }
     },
+    -- live_grep_raw = {
+    --   auto_quoting = true,
+    -- }
   },
 }
 telescope.load_extension('fzf')

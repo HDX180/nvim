@@ -17,10 +17,10 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Resize with arrows
-keymap("n", "<Up>", ":resize -2<CR>", opts)
-keymap("n", "<Down>", ":resize +2<CR>", opts)
-keymap("n", "<Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<Down>", ":resize -2<CR>", opts)
+keymap("n", "<Up>", ":resize +2<CR>", opts)
+keymap("n", "<Right>", ":vertical resize -2<CR>", opts)
+keymap("n", "<Left>", ":vertical resize +2<CR>", opts)
 
 -- no highlight
 keymap("n", "<leader>/", ":nohl<cr>", opts)
@@ -41,7 +41,6 @@ keymap("n", "cp", "ciw<C-r>0<ESC>", opts)
 keymap("i", "<C-a>", "<Right>", opts)
 keymap("n", "<", "<<", opts)
 keymap("n", ">", ">>", opts)
-keymap("n", "Y", "y$", opts)
 
 -- switch h/cpp
 keymap("n", "<A-o>", "<cmd>FSHere<cr>", opts)
@@ -52,15 +51,12 @@ keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
 -- Better terminal navigation
-keymap("t", "<C-k>", "<C-\\><C-n><C-w>k", term_opts)
-keymap("t", "<C-j>", "<C-\\><C-n><C-w>j", term_opts)
-keymap("t", "<C-h>", "<C-\\><C-n><C-w>h", term_opts)
-keymap("t", "<C-l>", "<C-\\><C-n><C-w>l", term_opts)
-keymap("t", "<ESC>", "<C-\\><C-n>", term_opts)
 keymap("n", "<Leader>t", "<cmd>exe v:count1 . 'ToggleTerm'", opts)
+keymap("n", "<Leader>g", "<cmd>lua _lazygit_toggle()<CR>", opts)
 
 -- telescope
-keymap("n", "<Leader>f", "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw(require('telescope.themes').get_ivy())<cr>", opts)
+keymap("n", "<Leader>f", "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())<cr>", opts)
+-- keymap("n", "<Leader>F", "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw(require('telescope.themes').get_ivy())<cr>", opts)
 keymap("v", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string(require('telescope.themes').get_ivy())<cr>", opts)
 keymap("n", "<Leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)
 keymap("n", "<C-p>", "<cmd>Telescope find_files<cr>", opts)
@@ -75,5 +71,3 @@ keymap("n", "tt", "<cmd>NvimTreeToggle<cr>", opts)
 -- Spectre
 keymap("v", "<Leader>s", "<cmd>lua require('spectre').open_visual()<cr>", opts)
 
--- lsp
-keymap("n", "gr", "<cmd>Trouble lsp_references<cr>", opts)

@@ -5,6 +5,6 @@ if not status_ok then
 end
 
 spectre.setup(
-  {
+{
 }
 )

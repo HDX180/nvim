@@ -104,6 +104,16 @@ _G.packer_plugins = {
     path = "/root/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
+  ["diffview.nvim"] = {
+    loaded = true,
+    path = "/root/.local/share/nvim/site/pack/packer/start/diffview.nvim",
+    url = "https://github.com/sindrets/diffview.nvim"
+  },
+  ["git-blame.nvim"] = {
+    loaded = true,
+    path = "/root/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
+    url = "https://github.com/f-person/git-blame.nvim"
+  },
   gruvbox = {
     loaded = true,
     path = "/root/.local/share/nvim/site/pack/packer/start/gruvbox",
@@ -179,11 +189,6 @@ _G.packer_plugins = {
     path = "/root/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["project.nvim"] = {
-    loaded = true,
-    path = "/root/.local/share/nvim/site/pack/packer/start/project.nvim",
-    url = "https://github.com/ahmedkhalf/project.nvim"
-  },
   tcomment_vim = {
     loaded = true,
     path = "/root/.local/share/nvim/site/pack/packer/start/tcomment_vim",
@@ -224,10 +229,10 @@ _G.packer_plugins = {
     path = "/root/.local/share/nvim/site/pack/packer/start/vim-fswitch",
     url = "https://github.com/derekwyatt/vim-fswitch"
   },
-  ["vim-fugitive"] = {
+  ["vim-illuminate"] = {
     loaded = true,
-    path = "/root/.local/share/nvim/site/pack/packer/start/vim-fugitive",
-    url = "https://github.com/tpope/vim-fugitive"
+    path = "/root/.local/share/nvim/site/pack/packer/start/vim-illuminate",
+    url = "https://github.com/RRethy/vim-illuminate"
   },
   ["vim-visual-multi"] = {
     loaded = true,
