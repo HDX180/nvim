@@ -16,6 +16,7 @@ local diagnostics = {
   colored = false,
   update_in_insert = false,
   always_visible = false,
+  color = { fg = "#a89bb9" },
 }
 
 local diff = {
@@ -27,6 +28,7 @@ local diff = {
   --   removed = { fg = "#ec5f67" },
   -- },
   colored = false,
+  color = { fg = "#a89bb9" },
   cond = hide_in_width
 }
 
@@ -39,9 +41,20 @@ local mode = {
 
 
 local file_name = {
+  -- function()
+  --   if (vim.bo.filetype == "TelescopePrompt")
+  --   then
+  --     return "telescope"
+  --   elseif (vim.bo.filetype == "toggleterm")
+  --   then
+  --      return "term(" .. vim.b.toggle_number .. ")"
+  --   else
+  --     return vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+  --   end
+  -- end,
   'filename',
   file_status = true, -- Displays file status (readonly status, modified status)
-  path = 0, -- 0: Just the filename
+  path = 1, -- 0: Just the filename
   -- 1: Relative path
   -- 2: Absolute path
 
@@ -52,19 +65,21 @@ local file_name = {
     readonly = ' [ReadOnly]', -- Text to show when the file is non-modifiable or readonly.
     unnamed = '[No Name]', -- Text to show for unnamed buffers.
   },
-  -- color = { fg = "#a89bb9", gui='bold,italic'}
+  color = { fg = "#a89bb9", gui='bold,italic'}
 }
 
 local filetype = {
   "filetype",
   icons_enabled = false,
   icon = nil,
+  color = { fg = "#a89bb9", gui='bold,italic'}
 }
 
 local branch = {
   "branch",
   icons_enabled = true,
   icon = "",
+  color = { fg = "#a89bb9", gui='bold'}
 }
 
 local location = {
@@ -74,7 +89,8 @@ local location = {
 
 local fileformat = {
   "fileformat",
-  padding = { left = 1, right = 2 }
+  padding = { left = 1, right = 2 },
+  color = { fg = "#a89bb9" }
 }
 
 -- cool function for progress
@@ -88,12 +104,15 @@ local progress = {
     local index = math.ceil(line_ratio * #chars)
     return chars[index]
   end,
-  color = { fg = "#ebdbb2" }
+  color = { fg = "#5d461a" }
 }
 
-local spaces = function()
-  return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-end
+local spaces = {
+  function()
+    return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+  end,
+  color = { fg = "#a89bb9", gui='bold,italic'}
+}
 
 local explode = function(str)
   local t = {}
@@ -154,10 +173,18 @@ local mysplit = function(str, delimiter)
 end
 
 
-local session = function()
-  local list = mysplit(vim.fn.fnamemodify(vim.v.this_session, ":t"), "__")
-  return vim.bo.filetype == " toggleterm" and "term(" .. vim.b.toggle_number .. ") " or " " .. list[#list] .. " "
-end
+local session = {
+  function()
+    local list = mysplit(vim.fn.fnamemodify(vim.v.this_session, ":t"), "__")
+    return " " .. list[#list] .. " "
+  end,
+  color = { fg = "#a89bb9", gui='bold,italic'}
+}
+
+local color_encoding = {
+  "encoding",
+  color = { fg = "#a89bb9", gui='bold,italic'}
+}
 
 -- add gps module to get the position information
 -- local gps = require("nvim-gps")
@@ -186,7 +213,7 @@ lualine.setup({
       end, file_name },
 
     lualine_x = { diagnostics },
-    lualine_y = { spaces, "encoding", filetype, fileformat },
+    lualine_y = { spaces, color_encoding, filetype, fileformat },
     lualine_z = { location, progress },
     -- lualine_z = { progress },
   },

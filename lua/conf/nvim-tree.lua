@@ -38,7 +38,7 @@ nvim_tree.setup({
   update_cwd = true,
   sort_by = "name",
   view = {
-    width = 30,
+    width = 50,
     height = 30,
     hide_root_folder = true,
     side = "left",
@@ -86,7 +86,7 @@ nvim_tree.setup({
     exclude = {},
   },
   git = {
-    enable = false,
+    enable = true,
     ignore = true,
     timeout = 400,
   },

@@ -89,7 +89,7 @@ telescope.setup {
         -- setting `path_display.shorten = { len = 1, exclude = {1, -1} }`
         -- will give a path like:
         --   `alpha/b/g/delta.txt`
-        len = 5, exclude = { 1, -1 }
+        len = 10, exclude = { 1, -1 }
       },
     },
 
@@ -187,7 +187,7 @@ telescope.setup {
         -- even more opts
       }
     },
-    -- live_grep_raw = {
+    -- live_grep_args = {
     --   auto_quoting = true,
     -- }
   },

@@ -42,6 +42,10 @@ keymap("i", "<C-a>", "<Right>", opts)
 keymap("n", "<", "<<", opts)
 keymap("n", ">", ">>", opts)
 
+-- Move text up and down
+keymap("n", "<A-j>", "<Esc>:m .+1<CR>", opts)
+keymap("n", "<A-k>", "<Esc>:m .-2<CR>", opts)
+
 -- switch h/cpp
 keymap("n", "<A-o>", "<cmd>FSHere<cr>", opts)
 
@@ -56,8 +60,8 @@ keymap("n", "<Leader>g", "<cmd>lua _lazygit_toggle()<CR>", opts)
 
 -- telescope
 keymap("n", "<Leader>f", "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())<cr>", opts)
--- keymap("n", "<Leader>F", "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw(require('telescope.themes').get_ivy())<cr>", opts)
-keymap("v", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string(require('telescope.themes').get_ivy())<cr>", opts)
+keymap("v", "<Leader>f", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({default_text = '-F \"' .. vim.fn.expand('<cword>') .. '\" -w -s -g \"!.ccls/*\"'})<cr>", opts)
+-- keymap("v", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string(require('telescope.themes').get_ivy())<cr>", opts)
 keymap("n", "<Leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)
 keymap("n", "<C-p>", "<cmd>Telescope find_files<cr>", opts)
 

@@ -106,10 +106,9 @@ cmp_config = {
   mapping = cmp.mapping.preset.insert {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    -- TODO: potentially fix emmet nonsense
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()

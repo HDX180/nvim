@@ -45,9 +45,9 @@ local lazygit = Terminal:new({
   cmd = "lazygit",
   dir = "git_dir",
   direction = "float",
-  -- float_opts = {
-  --   border = "double",
-  -- },
+  float_opts = {
+    border = "curved",
+  },
 })
 
 function _lazygit_toggle()

@@ -17,6 +17,7 @@ return require('packer').startup(function()
   use 'mg979/vim-visual-multi'
   use 'jiangmiao/auto-pairs'
 
+  -- lua基础组件
   use 'nvim-lua/plenary.nvim'
 
   -- 查找替换
@@ -25,7 +26,7 @@ return require('packer').startup(function()
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-      { 'nvim-telescope/telescope-live-grep-raw.nvim' }
+      { 'nvim-telescope/telescope-live-grep-args.nvim' }
     }
   }
   use "nvim-telescope/telescope-ui-select.nvim"
@@ -67,7 +68,7 @@ return require('packer').startup(function()
   -- switch h/cpp
   use 'derekwyatt/vim-fswitch'
 
-  -- git 
+  -- git
   use 'sindrets/diffview.nvim'
   use 'f-person/git-blame.nvim'
 
