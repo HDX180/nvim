@@ -47,7 +47,7 @@ keymap("n", "<A-j>", "<Esc>:m .+1<CR>", opts)
 keymap("n", "<A-k>", "<Esc>:m .-2<CR>", opts)
 
 -- switch h/cpp
-keymap("n", "<A-o>", "<cmd>FSHere<cr>", opts)
+keymap("n", "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -65,6 +65,12 @@ keymap("v", "<Leader>f", "<cmd>lua require('telescope').extensions.live_grep_arg
 keymap("n", "<Leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)
 keymap("n", "<C-p>", "<cmd>Telescope find_files<cr>", opts)
 
+-- lsp
+keymap("n", "gd", "<cmd>Telescope lsp_definitions theme=ivy<CR>", opts)
+keymap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+keymap("n", "gr", "<cmd>Telescope lsp_references theme=ivy<CR>", opts)
+vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format()' ]]
 
 -- session
 keymap("n", "gs", "<cmd>SessionManager load_session<cr>", opts)

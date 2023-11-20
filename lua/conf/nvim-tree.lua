@@ -31,28 +31,16 @@ nvim_tree.setup({
   hijack_cursor = false,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
-  ignore_buffer_on_setup = false,
-  open_on_setup = false,
-  open_on_setup_file = false,
   open_on_tab = false,
   update_cwd = true,
   sort_by = "name",
   view = {
-    width = 50,
-    height = 30,
-    hide_root_folder = true,
+    width = 40,
     side = "left",
     preserve_window_proportions = false,
     number = false,
     relativenumber = false,
     signcolumn = "yes",
-    mappings = {
-      custom_only = false,
-      list = {
-        -- user mappings go here
-        -- { key = "<C-v>", action = "vsplit" },
-      },
-    },
   },
   renderer = {
     indent_markers = {
@@ -75,7 +63,6 @@ nvim_tree.setup({
     enable = true,
     ignore_list = {},
   },
-  ignore_ft_on_setup = {},
   system_open = {
     cmd = "",
     args = {},
@@ -121,11 +108,10 @@ nvim_tree.setup({
       profile = false,
     },
   },
-}
-)
+})
 
 -- with relative path
-require "nvim-tree.events".on_file_created(function(file) vim.cmd("edit " .. file.fname) end)
+-- require "nvim-tree.events".on_file_created(function(file) vim.cmd("edit " .. file.fname) end)
 
 -- auto close feature
 -- vim.cmd(

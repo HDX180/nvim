@@ -9,7 +9,7 @@ end
 -- 配置：https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = {
     -- 语言服务器名称：配置选项
-    'sumneko_lua',
+    'lua_ls',
     'ccls'
 }
 local keymap_opts = { noremap=true, silent=true }

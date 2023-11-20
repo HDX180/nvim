@@ -22,6 +22,7 @@ local options = {
   clipboard = "unnamedplus",
   showmode = false,
   hidden = true,
+  mouse = "",
 }
 
 vim.opt.shortmess:append "c"

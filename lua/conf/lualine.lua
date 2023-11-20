@@ -16,7 +16,6 @@ local diagnostics = {
   colored = false,
   update_in_insert = false,
   always_visible = false,
-  color = { fg = "#a89bb9" },
 }
 
 local diff = {
@@ -28,7 +27,6 @@ local diff = {
   --   removed = { fg = "#ec5f67" },
   -- },
   colored = false,
-  color = { fg = "#a89bb9" },
   cond = hide_in_width
 }
 
@@ -37,6 +35,7 @@ local mode = {
   fmt = function(str)
     return "-- " .. str .. " --"
   end,
+  color = { gui='bold'}
 }
 
 
@@ -65,21 +64,22 @@ local file_name = {
     readonly = ' [ReadOnly]', -- Text to show when the file is non-modifiable or readonly.
     unnamed = '[No Name]', -- Text to show for unnamed buffers.
   },
-  color = { fg = "#a89bb9", gui='bold,italic'}
+  color = { gui='bold,italic'}
 }
 
 local filetype = {
   "filetype",
   icons_enabled = false,
   icon = nil,
-  color = { fg = "#a89bb9", gui='bold,italic'}
+  -- color = { fg = "#a89bb9", gui='bold,italic'}
+  color = { gui='bold,italic'}
 }
 
 local branch = {
   "branch",
   icons_enabled = true,
   icon = "",
-  color = { fg = "#a89bb9", gui='bold'}
+  color = { gui='bold'}
 }
 
 local location = {
@@ -90,7 +90,7 @@ local location = {
 local fileformat = {
   "fileformat",
   padding = { left = 1, right = 2 },
-  color = { fg = "#a89bb9" }
+  -- color = { fg = "#a89bb9" }
 }
 
 -- cool function for progress
@@ -111,7 +111,8 @@ local spaces = {
   function()
     return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
   end,
-  color = { fg = "#a89bb9", gui='bold,italic'}
+  -- color = { fg = "#a89bb9", gui='bold,italic'}
+  color = { gui='bold,italic'}
 }
 
 local explode = function(str)
@@ -178,12 +179,14 @@ local session = {
     local list = mysplit(vim.fn.fnamemodify(vim.v.this_session, ":t"), "__")
     return " " .. list[#list] .. " "
   end,
-  color = { fg = "#a89bb9", gui='bold,italic'}
+  -- color = { fg = "#a89bb9", gui='bold,italic'}
+  color = { gui='bold,italic' }
 }
 
 local color_encoding = {
   "encoding",
-  color = { fg = "#a89bb9", gui='bold,italic'}
+  -- color = { fg = "#a89bb9", gui='bold,italic'}
+  color = {gui='bold,italic'}
 }
 
 -- add gps module to get the position information
