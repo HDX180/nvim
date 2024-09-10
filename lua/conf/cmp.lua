@@ -21,6 +21,9 @@ cmp_config = {
     ghost_text = false,
     native_menu = false,
   },
+  performance = {
+    max_view_entries = 20,
+  }, 
   formatting = {
     fields = { "kind", "abbr", "menu" },
     max_width = 0,
@@ -56,8 +59,6 @@ cmp_config = {
       emoji = "(Emoji)",
       path = "(Path)",
       calc = "(Calc)",
-      cmp_tabnine = "(Tabnine)",
-      vsnip = "(Snippet)",
       luasnip = "(Snippet)",
       buffer = "(Buffer)",
       spell = "(Spell)",
@@ -94,7 +95,6 @@ cmp_config = {
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "luasnip" },
-    { name = "cmp_tabnine" },
     { name = "nvim_lua" },
     { name = "buffer" },
     { name = "spell" },
@@ -106,7 +106,7 @@ cmp_config = {
   mapping = cmp.mapping.preset.insert {
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(4),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = cmp.mapping(function(fallback)

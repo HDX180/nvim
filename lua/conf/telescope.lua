@@ -93,6 +93,21 @@ telescope.setup {
       },
     },
 
+    vimgrep_arguments = {
+      'rg',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      -- '--word-regexp', 
+                
+      -- some examples
+      '--hidden',
+      '--glob',  -- this flag allows you to hide exclude these files and folders from your search 👇
+      '!{**/.git/*,**/.ccls/*}', 
+    },
+
     mappings = {
       i = {
         ["<C-n>"] = actions.cycle_history_next,
@@ -187,9 +202,14 @@ telescope.setup {
         -- even more opts
       }
     },
-    -- live_grep_args = {
-    --   auto_quoting = true,
-    -- }
+    live_grep_args = {
+      mappings = { -- extend mappings
+        i = {
+          -- freeze the current list and start a fuzzy search in the frozen list
+          ["<C-space>"] = actions.to_fuzzy_refine,
+        },
+      },
+    }
   },
 }
 telescope.load_extension('fzf')

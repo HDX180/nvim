@@ -59,11 +59,12 @@ keymap("n", "<Leader>t", "<cmd>exe v:count1 . 'ToggleTerm'", opts)
 keymap("n", "<Leader>g", "<cmd>lua _lazygit_toggle()<CR>", opts)
 
 -- telescope
-keymap("n", "<Leader>f", "<cmd>lua require('telescope.builtin').live_grep(require('telescope.themes').get_ivy())<cr>", opts)
 keymap("v", "<Leader>f", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args({default_text = '-F \"' .. vim.fn.expand('<cword>') .. '\" -w -s -g \"!.ccls/*\"'})<cr>", opts)
--- keymap("v", "<Leader>f", "<cmd>lua require('telescope.builtin').grep_string(require('telescope.themes').get_ivy())<cr>", opts)
+keymap('n', '<leader>f', "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
 keymap("n", "<Leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)
 keymap("n", "<C-p>", "<cmd>Telescope find_files<cr>", opts)
+
+keymap("v", "<leader>v", "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<cr>", opts)
 
 -- lsp
 keymap("n", "gd", "<cmd>Telescope lsp_definitions theme=ivy<CR>", opts)
@@ -80,4 +81,12 @@ keymap("n", "tt", "<cmd>NvimTreeToggle<cr>", opts)
 
 -- Spectre
 keymap("v", "<Leader>s", "<cmd>lua require('spectre').open_visual()<cr>", opts)
+
+-- snippets
+keymap("s", "<Tab>", "<cmd> lua require('luasnip').jump(1)<cr>", opts)
+keymap("s", "<S-Tab>", "<cmd> lua require('luasnip').jump(-1)<cr>", opts)
+
+-- 折叠
+-- keymap("n", "<Leader>'", "<cmd>lua require('ufo').openFoldsExceptKinds()<cr>", opts)
+
 
