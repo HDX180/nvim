@@ -10,7 +10,7 @@ configs.setup {
   ignore_install = { "" },
   highlight = {
     enable = true,
-    disable = { "" }, -- list of language that will be disabled
+    disable = { "vimdoc" }, -- list of language that will be disabled
     additional_vim_regex_highlighting = false,
   },
   -- 启用增量选择
@@ -19,12 +19,20 @@ configs.setup {
     keymaps = {
       init_selection = '<CR>',
       node_incremental = '<CR>',
-      node_decremental = '<BS>',
+      node_decremental = '<BS>', -- del键
       scope_incremental = '<TAB>',
     }
   },
-  -- 启用基于Treesitter的代码格式化(=)
+  -- 启用基于Treesitter的缩进(==)
   indent = {
+    enable = true
+  },
+  -- 折叠
+  fold = {
     enable = true
   }
 }
+-- 设置折叠方法为 treesitter
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldmethod = 'manual'

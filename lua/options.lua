@@ -15,7 +15,7 @@ local options = {
   splitright = true,
   -- showtabline = 2,
   termguicolors = true,
-  updatetime = 300,
+  updatetime = 500,
   backup = false,
   writebackup = false,
   signcolumn = "no",
@@ -31,13 +31,28 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
--- WSL yank support
 vim.cmd [[
-let s:clip = '/mnt/c/Windows/System32/clip.exe' 
-if executable(s:clip)
-    augroup WSLYank
-        autocmd!
-        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-    augroup END
-endif
+  highlight TreesitterContextBottom cterm=NONE ctermbg=235 gui=NONE guisp=NONE guibg=#303347
+  highlight TreesitterContextLineNumberBottom cterm=NONE ctermbg=235 gui=NONE guisp=NONE guibg=#303347
 ]]
+
+-- 高亮cursor下的word
+vim.api.nvim_create_autocmd({'CursorHold', 'CursorHoldI'}, {
+  callback = function(opts)
+    vim.lsp.buf.document_highlight()
+  end
+})
+
+vim.api.nvim_create_autocmd({'CursorMoved'}, {
+  callback = function(opts)
+    vim.lsp.buf.clear_references()
+  end
+})
+-- WSL yank support
+-- let s:clip = '/mnt/c/Windows/System32/clip.exe' 
+-- if executable(s:clip)
+    -- augroup WSLYank
+        -- autocmd!
+        -- autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    -- augroup END
+-- endif

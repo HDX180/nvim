@@ -9,6 +9,7 @@ if not status_cmp_ok then
 end
 
 cmp_config = {
+  enabled = false,
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,

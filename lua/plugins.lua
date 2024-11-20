@@ -35,12 +35,6 @@ vim.cmd [[packadd packer.nvim]]
       run = "make",
     }
 
-    -- 折叠代码块
-    use {
-      'kevinhwang91/nvim-ufo',
-      requires = 'kevinhwang91/promise-async'
-    }
-
     -- LSP
     use "williamboman/mason.nvim"
     use "williamboman/mason-lspconfig.nvim"
@@ -72,7 +66,7 @@ vim.cmd [[packadd packer.nvim]]
     use "catppuccin/nvim"
 
     -- 启动页
-    use "goolord/alpha-nvim"
+    -- use "goolord/alpha-nvim"
 
     -- bufferline
     -- use {
@@ -91,7 +85,7 @@ vim.cmd [[packadd packer.nvim]]
 
     -- copilot
 
-    -- highlight cursor word
-    -- use 'RRethy/vim-illuminate'
+    -- 代码缩进线
+    use 'lukas-reineke/indent-blankline.nvim'
 
   end)

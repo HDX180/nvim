@@ -103,7 +103,7 @@ telescope.setup {
       -- '--word-regexp', 
                 
       -- some examples
-      '--hidden',
+      -- '--hidden',
       '--glob',  -- this flag allows you to hide exclude these files and folders from your search 👇
       '!{**/.git/*,**/.ccls/*}', 
     },
@@ -205,8 +205,8 @@ telescope.setup {
     live_grep_args = {
       mappings = { -- extend mappings
         i = {
-          -- freeze the current list and start a fuzzy search in the frozen list
-          ["<C-space>"] = actions.to_fuzzy_refine,
+          -- freeze the current list and start a fuzzy search in the frozen list二次搜索
+          ["<C-i>"] = actions.to_fuzzy_refine,
         },
       },
     }
