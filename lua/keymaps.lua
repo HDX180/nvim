@@ -60,7 +60,7 @@ keymap("n", "<Leader>g", "<cmd>lua _lazygit_toggle()<CR>", opts)
 
 -- telescope
 keymap("v", "<leader>v", "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<cr>", opts)
-keymap("v", "<leader>f", "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor({additional_args = function() return { '-w', '-s' } end})<cr>", opts)
+keymap("v", "<leader>f", "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_word_under_cursor({additional_args = function() return { '-w', '-s', '-g', '!{**/tags/*}' } end})<cr>", opts)
 keymap("n", "<leader>f", "<cmd>lua require('telescope.builtin').grep_string({ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' })<cr>", opts)
 -- keymap('n', '<leader>f', "<cmd>lua require('telescope.builtin').live_grep()<cr>", opts)
 keymap("n", "<Leader>s", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", opts)

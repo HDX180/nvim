@@ -13,7 +13,7 @@ vim.cmd [[packadd packer.nvim]]
     use "nvim-lualine/lualine.nvim" -- status line
 
     use 'phaazon/hop.nvim'
-    use 'tomtom/tcomment_vim'
+    use 'numToStr/Comment.nvim'
     use 'mg979/vim-visual-multi'
     use 'jiangmiao/auto-pairs'
 
@@ -59,6 +59,7 @@ vim.cmd [[packadd packer.nvim]]
       "Shatur/neovim-session-manager",
       commit = 'a0b9d25'
     }
+    -- auto-session
 
     -- color
     use "morhetz/gruvbox"
@@ -77,7 +78,7 @@ vim.cmd [[packadd packer.nvim]]
     use "akinsho/toggleterm.nvim" -- toggle terminal
 
     -- move smooth
-    -- use 'karb94/neoscroll.nvim'
+    use 'karb94/neoscroll.nvim'
 
     -- git 
     -- 显示每一行提交信息

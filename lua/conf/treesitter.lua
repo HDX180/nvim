@@ -4,6 +4,8 @@ if not status_ok then
   return
 end
 
+require 'nvim-treesitter.install'.compilers = { "clang++" }
+
 configs.setup {
   ensure_installed = { "cpp", "c", "python", "go", "markdown", "json", "yaml", "bash", "lua" }, 
   sync_install = false,

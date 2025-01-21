@@ -105,7 +105,7 @@ telescope.setup {
       -- some examples
       -- '--hidden',
       '--glob',  -- this flag allows you to hide exclude these files and folders from your search 👇
-      '!{**/.git/*,**/.ccls/*}', 
+      '!{**/.git/*,**/.ccls/*,**/tags/*}', 
     },
 
     mappings = {
