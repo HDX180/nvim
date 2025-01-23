@@ -12,21 +12,21 @@ local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
-  symbols = { error = " ", warn = " " },
-  colored = false,
+  -- symbols = { error = " ", warn = " " },
+  colored = true,
   update_in_insert = false,
   always_visible = false,
 }
 
 local diff = {
   "diff",
-  symbols = { added = " ", modified = " ", removed = " " },
+  -- symbols = { added = " ", modified = " ", removed = " " },
   -- diff_color = {
   --   added = { fg = "#98be65" },
   --   modified = { fg = "#ecbe7b" },
   --   removed = { fg = "#ec5f67" },
   -- },
-  colored = false,
+  colored = true,
   cond = hide_in_width
 }
 

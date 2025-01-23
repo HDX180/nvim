@@ -180,14 +180,6 @@ telescope.setup {
       find_command = { "find", "-type", "f" },
       -- find_command = {"fd"},
     },
-
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
   },
   extensions = {
     fzf = {
@@ -196,11 +188,6 @@ telescope.setup {
       override_file_sorter = true, -- override the file sorter
       case_mode = "smart_case", -- or "ignore_case" or "respect_case"
       -- the default case_mode is "smart_case"
-    },
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown {
-        -- even more opts
-      }
     },
     live_grep_args = {
       mappings = { -- extend mappings
@@ -212,5 +199,4 @@ telescope.setup {
     }
   },
 }
-telescope.load_extension('fzf')
-telescope.load_extension("ui-select")
+-- telescope.load_extension('fzf')

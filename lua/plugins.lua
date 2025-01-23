@@ -1,92 +1,110 @@
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-  return require('packer').startup(function()
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
 
-    use 'nvim-treesitter/nvim-treesitter'
-    use "romgrk/nvim-treesitter-context" -- show class/function at the top
+require("lazy").setup {
 
-    use 'nvim-tree/nvim-tree.lua'
-    use 'nvim-tree/nvim-web-devicons'
-    use "nvim-lualine/lualine.nvim" -- status line
+  { "nvim-treesitter/nvim-treesitter" },
+  -- 显示类/函数
+  { "romgrk/nvim-treesitter-context" },
 
-    use 'phaazon/hop.nvim'
-    use 'numToStr/Comment.nvim'
-    use 'mg979/vim-visual-multi'
-    use 'jiangmiao/auto-pairs'
+  { "nvim-tree/nvim-tree.lua" },
+  -- icons
+  { "nvim-tree/nvim-web-devicons" },
+  {
+    "echasnovski/mini.icons",
+    version = '*',
+    opts = {},
+    lazy = true,
+    specs = {
+      { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
+    },
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
+  },
+  { "nvim-lualine/lualine.nvim" },
 
-    -- lua基础组件
-    use 'nvim-lua/plenary.nvim'
+  { "phaazon/hop.nvim" },
+  { "numToStr/Comment.nvim" },
+  { "mg979/vim-visual-multi" },
+  { "jiangmiao/auto-pairs" },
 
-    -- 查找替换
-    use 'windwp/nvim-spectre'
+  -- lua基础组件
+  { "nvim-lua/plenary.nvim" },
 
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        { 'nvim-telescope/telescope-live-grep-args.nvim' }
-      }
-    }
-    use "nvim-telescope/telescope-ui-select.nvim"
-    use {
+  -- 查找替换
+  { "windwp/nvim-spectre" },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    dependencies = {
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      "nvim-telescope/telescope-symbols.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make",
-    }
+    },
+  },
 
-    -- LSP
-    use "williamboman/mason.nvim"
-    use "williamboman/mason-lspconfig.nvim"
-    use "neovim/nvim-lspconfig"
+  { "stevearc/dressing.nvim" },
 
-    use 'hrsh7th/nvim-cmp'
-    use "hrsh7th/cmp-buffer" -- buffer completions
-    use "hrsh7th/cmp-path" -- path completions
-    use "hrsh7th/cmp-cmdline" -- cmdline completions
-    use "hrsh7th/cmp-nvim-lsp"
+  -- LSP
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "neovim/nvim-lspconfig" },
 
-    -- 补全
-    use { 'L3MON4D3/LuaSnip' }
-    use { 'saadparwaiz1/cmp_luasnip' }
-    use 'rafamadriz/friendly-snippets'
+  -- 自动补全
+  {
+    "hrsh7th/nvim-cmp",
+    event = 'VeryLazy',
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-omni",
+      "hrsh7th/cmp-emoji",
+      "hrsh7th/cmp-cmdline",
+      "onsails/lspkind.nvim",
+    },
+  },
 
-    -- better quickfix
-    use "folke/trouble.nvim"
+  -- better quickfix
+  { "folke/trouble.nvim" },
 
-    -- session
-    use {
-      "Shatur/neovim-session-manager",
-      commit = 'a0b9d25'
-    }
-    -- auto-session
+  -- session_manager
+  { "Shatur/neovim-session-manager" },
+  -- auto_session
 
-    -- color
-    use "morhetz/gruvbox"
-    use "rebelot/kanagawa.nvim"
-    use "catppuccin/nvim"
+  -- colorscheme
+  { "morhetz/gruvbox" },
+  { "rebelot/kanagawa.nvim" },
+  { "catppuccin/nvim" },
 
-    -- 启动页
-    -- use "goolord/alpha-nvim"
 
-    -- bufferline
-    -- use {
-    --   "akinsho/bufferline.nvim", -- tab
-    --   tag = "v1.2.0",
-    -- }
+  { "akinsho/toggleterm.nvim" },
 
-    use "akinsho/toggleterm.nvim" -- toggle terminal
+  -- move smooth
+  { "karb94/neoscroll.nvim" },
 
-    -- move smooth
-    use 'karb94/neoscroll.nvim'
+  -- git
+  -- 显示每一行提交信息
+  { "f-person/git-blame.nvim" },
 
-    -- git 
-    -- 显示每一行提交信息
-    use 'f-person/git-blame.nvim'
+  -- copilot
 
-    -- copilot
-
-    -- 代码缩进线
-    use 'lukas-reineke/indent-blankline.nvim'
-
-  end)
+  -- 代码缩进线
+  { "lukas-reineke/indent-blankline.nvim" },
+}

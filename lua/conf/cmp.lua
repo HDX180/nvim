@@ -8,8 +8,10 @@ if not status_cmp_ok then
   return
 end
 
-cmp_config = {
-  enabled = false,
+local lspkind = require('lspkind')
+
+cmp.setup {
+  enabled = true,
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
@@ -24,70 +26,33 @@ cmp_config = {
   },
   performance = {
     max_view_entries = 20,
-  }, 
+  },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
-    max_width = 0,
-    kind_icons = {
-      Class = " ",
-      Color = " ",
-      Constant = "ﲀ ",
-      Constructor = " ",
-      Enum = "練",
-      EnumMember = " ",
-      Event = " ",
-      Field = " ",
-      File = "",
-      Folder = " ",
-      Function = " ",
-      Interface = "ﰮ ",
-      Keyword = " ",
-      Method = " ",
-      Module = " ",
-      Operator = "",
-      Property = " ",
-      Reference = " ",
-      Snippet = " ",
-      Struct = " ",
-      Text = " ",
-      TypeParameter = " ",
-      Unit = "塞",
-      Value = " ",
-      Variable = " ",
-    },
-    source_names = {
-      nvim_lsp = "(LSP)",
-      emoji = "(Emoji)",
-      path = "(Path)",
-      calc = "(Calc)",
-      luasnip = "(Snippet)",
-      buffer = "(Buffer)",
-      spell = "(Spell)",
-    },
-    duplicates = {
-      buffer = 1,
-      path = 1,
-      nvim_lsp = 0,
-      luasnip = 1,
-    },
-    duplicates_default = 0,
-    format = function(entry, vim_item)
-      local max_width = cmp_config.formatting.max_width
-      if max_width ~= 0 and #vim_item.abbr > max_width then
-        vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = {
+        -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+        -- can also be a function to dynamically calculate max width such as
+        -- menu = function() return math.floor(0.45 * vim.o.columns) end,
+        menu = 50, -- leading text (labelDetails)
+        abbr = 50, -- actual suggestion item
+      },
+      ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+      show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      before = function (entry, vim_item)
+        -- ...
+        return vim_item
       end
-      vim_item.kind = cmp_config.formatting.kind_icons[vim_item.kind]
-      vim_item.menu = cmp_config.formatting.source_names[entry.source.name]
-      vim_item.dup = cmp_config.formatting.duplicates[entry.source.name]
-          or cmp_config.formatting.duplicates_default
-      return vim_item
-    end,
+    })
   },
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
+  -- snippet = {
+  --   expand = function(args)
+  --     require("luasnip").lsp_expand(args.body)
+  --   end,
+  -- },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
@@ -95,7 +60,7 @@ cmp_config = {
   sources = {
     { name = "nvim_lsp" },
     { name = "path" },
-    { name = "luasnip" },
+    -- { name = "luasnip" },
     { name = "nvim_lua" },
     { name = "buffer" },
     { name = "spell" },
@@ -110,28 +75,28 @@ cmp_config = {
     ["<C-u>"] = cmp.mapping.scroll_docs(4),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif check_backspace() then
-        fallback()
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, {
-      "i",
-      "s",
-    }),
+    -- ["<Tab>"] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif check_backspace() then
+    --     fallback()
+    --   else
+    --     fallback()
+    --   end
+    -- end, {
+    --   "i",
+    --   "s",
+    -- }),
+    -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_prev_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end, {
+    --   "i",
+    --   "s",
+    -- }),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort()
   },
@@ -155,18 +120,18 @@ cmp.setup.cmdline('?', {
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'cmdline' }
-  }, {
     { name = 'path' }
-  })
+  }, {
+    { name = 'cmdline' }
+  }),
+  matching = { disallow_symbol_nonprefix_matching = false }
 })
 
-cmp.setup(cmp_config)
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- The following example advertise capabilities to `clangd`.
-require'lspconfig'.clangd.setup {
+require 'lspconfig'.clangd.setup {
   capabilities = capabilities,
 }

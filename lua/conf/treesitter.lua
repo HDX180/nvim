@@ -4,15 +4,15 @@ if not status_ok then
   return
 end
 
-require 'nvim-treesitter.install'.compilers = { "clang++" }
+-- require 'nvim-treesitter.install'.compilers = { "clang++" }
 
 configs.setup {
-  ensure_installed = { "cpp", "c", "python", "go", "markdown", "json", "yaml", "bash", "lua" }, 
+  ensure_installed = { "cpp", "c", "vimdoc", "python", "go", "markdown", "json", "yaml", "bash", "lua" }, 
   sync_install = false,
   ignore_install = { "" },
   highlight = {
     enable = true,
-    disable = { "vimdoc" }, -- list of language that will be disabled
+    disable = { }, -- list of language that will be disabled
     additional_vim_regex_highlighting = false,
   },
   -- 启用增量选择
