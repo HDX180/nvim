@@ -104,6 +104,9 @@ require("lazy").setup {
   { "f-person/git-blame.nvim" },
 
   -- copilot
+  {
+    dir = "~/.config/nvim/pack/gongfeng/start/vim"
+  },
 
   -- 代码缩进线
   { "lukas-reineke/indent-blankline.nvim" },
