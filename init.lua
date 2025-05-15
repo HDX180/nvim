@@ -2,9 +2,9 @@
 
 require "keymaps"
 require "plugins"
-require "autocmds"
 require "colorscheme"
 require "options"
+require "autocmds"
 
 require "conf"
 require "lsp"

@@ -2,41 +2,57 @@
 
 GETTING STARTED                                 *copilot*
 
+使用':Copilot setup'进行身份验证并启用工蜂Copilot。补全建议会以幽灵文本的样式显示，
+可以通过按<Tab>键接受。如果建议未显示，请使用':Copilot status'来验证Copilot是否
+已启用，如果出现任何问题可以企微联系“工蜂助手”
+
 COMMANDS                                        *:Copilot*
 
-                                                *:Copilot_disable*
-:Copilot setup        			    登录
-
                                                 *:Copilot_setup*
-:Copilot disable        			禁用补全
+:Copilot setup                登录
+
+                                                *:Copilot_signout*
+:Copilot signout              退出登录
+
+                                                *:Copilot_disable*
+:Copilot disable              禁用补全
 
                                                 *:Copilot_enable*
-:Copilot enable         			启动补全（默认）
+:Copilot enable               启动补全（默认）
 
                                                 *:Copilot_status*
-:Copilot status         			检查插件补全禁用状态
+:Copilot status               检查插件补全禁用状态
 
-OPTIONS                                         *copilot-options*
+                                                *:Copilot_single*
+:Copilot force_slc               单行补全(参数：true/false，不传可查看状态)
 
-                                                *b:copilot_completion_enabled*
-g:copilot_completion_enabled       			设置全局变量 0 ｜ 1，开启禁用全局补全
+                                                *:Copilot_languages*
+:Copilot languages            按语言开启/禁用补全(参数：{"java":true,"python":false}，不传可查看状态)
 
-
-:Copilot log        			    日志
+                                                *:Copilot_feedback*
+:Copilot feedback             馈问题或需求
 
                                                 *:Copilot_log*
+:Copilot log                  日志
+
+                                                *:Copilot_version*
+:Copilot version              版本
+
+                                                *:Copilot_update*
+:Copilot update               检查更新
 
 
-KEYBORDING				        *copilot-keyboarding*
+
+KEYBORDING                                      *copilot-keyboarding*
 
                                                 *copilot-i_tab*
-<tab>                   			全部补全
+<tab>                         全部补全
 
                                                 *copilot-i_CTRL-SHIFT-Right*
-<S-C-Right>               			按词补全
+<S-C-Right>                   按词补全
 
                                                 *copilot-i_ALT-CTRL-Right*
-<M-C-Right>             			按行补全
+<M-C-Right>                   按行补全
 
                                                 *copilot-i_CTRL-SHIFT-Down*
-<S-C-Down>             			    主动触发
+<S-C-Down>                    主动触发
