@@ -1,20 +1,90 @@
+-- require("codecompanion").setup({
+--   adapters = {
+--     qwen_code = function()
+--       return require("codecompanion.adapters").extend("ollama", {
+--         name = "qwen_code",
+--         url = "http://29.252.179.16:30000/v1/chat/completions",
+--         -- env = { api_key = function() return os.getenv("DEEPSEEK_API_KEY") end },
+--         headers = {
+--           ["Content-Type"] = "application/json",
+--           ["Authorization"] = "Bearer airtc_physical_test",
+--         },
+--         schema = {
+--           model = {
+--             default = "Qwen3-235B-A22B",
+--           },
+--         },
+--       })
+--     end,
+--   },
+--   strategies = {
+--     chat = { adapter = "qwen_code" },
+--     inline = { adapter = "qwen_code" },
+--   },
+--   opts = { language = "Chinese" },
+-- })
 require("codecompanion").setup({
   adapters = {
-    deepseek_code = function()
-      return require("codecompanion.adapters").extend("deepseek", {
-        name = "deepseek_code",
-        url = "http://36.248.76.15:30000/v1/chat/completions",
-        -- env = { api_key = function() return os.getenv("DEEPSEEK_API_KEY") end },
-        headers = {
-          ["Content-Type"] = "application/json",
-          ["Authorization"] = "Bearer airtc_physical_test",
+    my_openai = function()
+      return require("codecompanion.adapters").extend("openai_compatible", {
+        env = {
+          url = "http://29.252.179.16:30000", -- optional: default value is ollama url http://127.0.0.1:11434
+          api_key = "airtc_physical_test", -- optional: if your endpoint is authenticated
+          chat_url = "/v1/chat/completions", -- optional: default value, override if different
+          models_endpoint = "/v1/models", -- optional: attaches to the end of the URL to form the endpoint to retrieve models
         },
         schema = {
           model = {
-            default = "deepseek-ai/DeepSeek-V3",
-            choices = {
-              ["deepseek-ai/DeepSeek-V3"] = { opts = { can_reason = true } },
-              ["deepseek-ai/DeepSeek-R1"] = { opts = { can_reason = true } },
+            default = "Qwen3-235B-A22B",  -- define llm model to be used
+          },
+          temperature = {
+            order = 2,
+            mapping = "parameters",
+            type = "number",
+            optional = true,
+            default = 0.8,
+            desc = "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or top_p but not both.",
+            validate = function(n)
+              return n >= 0 and n <= 2, "Must be between 0 and 2"
+            end,
+          },
+          max_completion_tokens = {
+            order = 3,
+            mapping = "parameters",
+            type = "integer",
+            optional = true,
+            default = nil,
+            desc = "An upper bound for the number of tokens that can be generated for a completion.",
+            validate = function(n)
+              return n > 0, "Must be greater than 0"
+            end,
+          },
+          stop = {
+            order = 4,
+            mapping = "parameters",
+            type = "string",
+            optional = true,
+            default = nil,
+            desc = "Sets the stop sequences to use. When this pattern is encountered the LLM will stop generating text and return. Multiple stop patterns may be set by specifying multiple separate stop parameters in a modelfile.",
+            validate = function(s)
+              return s:len() > 0, "Cannot be an empty string"
+            end,
+          },
+          logit_bias = {
+            order = 5,
+            mapping = "parameters",
+            type = "map",
+            optional = true,
+            default = nil,
+            desc = "Modify the likelihood of specified tokens appearing in the completion. Maps tokens (specified by their token ID) to an associated bias value from -100 to 100. Use https://platform.openai.com/tokenizer to find token IDs.",
+            subtype_key = {
+              type = "integer",
+            },
+            subtype = {
+              type = "integer",
+              validate = function(n)
+                return n >= -100 and n <= 100, "Must be between -100 and 100"
+              end,
             },
           },
         },
@@ -22,8 +92,8 @@ require("codecompanion").setup({
     end,
   },
   strategies = {
-    chat = { adapter = "deepseek_code" },
-    inline = { adapter = "deepseek_code" },
+    chat = { adapter = "my_openai" },
+    inline = { adapter = "my_openai" },
   },
   opts = { language = "Chinese" },
 })
