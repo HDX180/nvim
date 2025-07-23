@@ -98,6 +98,15 @@ require("lazy").setup {
 
   -- move smooth
   { "karb94/neoscroll.nvim" },
+  { 
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      stiffness = 0.5,
+      trailing_stiffness = 0.5,
+      damping = 0.67,
+      matrix_pixel_threshold = 0.5,
+    },
+  },
 
   -- git
   -- 显示每一行提交信息
