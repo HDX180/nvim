@@ -35,7 +35,7 @@ require("codecompanion").setup({
         },
         schema = {
           model = {
-            default = "Qwen3-235B-A22B",  -- define llm model to be used
+            default = "Qwen3-235B-A22B-Thinking-2507",  -- define llm model to be used
           },
           temperature = {
             order = 2,

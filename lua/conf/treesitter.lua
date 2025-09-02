@@ -12,7 +12,15 @@ configs.setup {
   ignore_install = { "" },
   highlight = {
     enable = true,
-    disable = { }, -- list of language that will be disabled
+    disable = function(lang, bufnr)
+      local filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+      -- 如果文件类型为 nvim-tree 或缓冲区名称匹配 nvim-tree 模式，则禁用高亮
+      if filetype == "NvimTree" or filetype == "toggleterm" then
+        return true
+      end
+      -- 可以根据需要添加其他禁用条件
+      return false
+    end,
     additional_vim_regex_highlighting = false,
   },
   -- 启用增量选择
