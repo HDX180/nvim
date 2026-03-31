@@ -86,15 +86,40 @@ require("lazy").setup {
 
   -- session_manager
   { "Shatur/neovim-session-manager" },
-  -- auto_session
+
+  -- zoom window
+  {
+    'declancm/maximize.nvim',
+    config = true
+  },
 
   -- colorscheme
   { "morhetz/gruvbox" },
   { "rebelot/kanagawa.nvim" },
   { "catppuccin/nvim" },
 
-
   { "akinsho/toggleterm.nvim" },
+
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+        "LazyGit",
+        "LazyGitConfig",
+        "LazyGitCurrentFile",
+        "LazyGitFilter",
+        "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+        { "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
+  },
 
   -- move smooth
   { "karb94/neoscroll.nvim" },

@@ -15,6 +15,7 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<leader>z", "<cmd>lua require('maximize').toggle()<cr>", opts)
 
 -- Resize with arrows
 keymap("n", "<Down>", ":resize -2<CR>", opts)
@@ -56,7 +57,7 @@ keymap("v", ">", ">gv", opts)
 
 -- Better terminal navigation
 keymap("n", "<Leader>t", "<cmd>exe v:count1 . 'ToggleTerm'", opts)
-keymap("n", "<Leader>g", "<cmd>lua _lazygit_toggle()<CR>", opts)
+-- keymap("n", "<Leader>g", "<cmd>lua _lazygit_toggle()<CR>", opts)
 
 -- telescope
 keymap("v", "<leader>v", "<cmd>lua require('telescope-live-grep-args.shortcuts').grep_visual_selection()<cr>", opts)
