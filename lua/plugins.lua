@@ -89,8 +89,7 @@ require("lazy").setup {
 
   -- zoom window
   {
-    'declancm/maximize.nvim',
-    config = true
+    dir = "~/.config/nvim/lua/zoom-nvim",
   },
 
   -- colorscheme
@@ -100,6 +99,7 @@ require("lazy").setup {
 
   { "akinsho/toggleterm.nvim" },
 
+  -- git
   {
     "kdheepak/lazygit.nvim",
     lazy = true,
@@ -120,7 +120,7 @@ require("lazy").setup {
         { "<leader>g", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     }
   },
-
+  
   -- move smooth
   { "karb94/neoscroll.nvim" },
   { 
@@ -158,4 +158,13 @@ require("lazy").setup {
 
   -- 代码缩进线
   { "lukas-reineke/indent-blankline.nvim" },
+
+  -- git worktree
+  {
+    dir = "~/.config/nvim/lua/worktree-nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+  },
 }
