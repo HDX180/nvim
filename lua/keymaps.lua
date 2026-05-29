@@ -84,6 +84,10 @@ keymap("n", "gs", "<cmd>SessionManager load_session<cr>", opts)
 -- FileExpoler
 keymap("n", "tt", "<cmd>NvimTreeToggle<cr>", opts)
 
+-- CodeDiff
+keymap("n", "<leader>d", "<cmd>CodeDiff<cr>", opts)
+keymap("n", "<leader>D", "<cmd>CodeDiff history<cr>", opts)
+
 -- Spectre
 keymap("v", "<Leader>s", "<cmd>lua require('spectre').open_visual()<cr>", opts)
 

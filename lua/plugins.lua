@@ -167,4 +167,10 @@ require("lazy").setup {
       "nvim-lua/plenary.nvim",
     },
   },
+
+  -- code diff viewer
+  {
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
+  },
 }

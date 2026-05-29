@@ -11,7 +11,7 @@ nvim_tree.setup({
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
   open_on_tab = false,
-  update_cwd = true,
+  update_cwd = false,
   sort_by = "name",
   view = {
     width = 40,
@@ -35,7 +35,7 @@ nvim_tree.setup({
     },
   },
   hijack_directories = {
-    enable = true,
+    enable = false,
     auto_open = true,
   },
   update_focused_file = {
