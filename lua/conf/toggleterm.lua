@@ -20,6 +20,8 @@ toggleterm.setup({
   persist_size = true,
   close_on_exit = true,
   shell = vim.o.shell,
+  autochdir = true,
+  auto_scroll = false,
   float_opts = {
     border = "curved",
     winblend = 3,
@@ -39,6 +41,17 @@ function _G.set_terminal_keymaps()
 end
 
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+-- When entering a terminal window, scroll to the bottom to prevent
+-- showing stale top content after window layout changes (e.g. new split)
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "term://*",
+  callback = function()
+    if vim.bo.buftype == "terminal" then
+      vim.cmd("normal! G")
+    end
+  end,
+})
 
 local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new({

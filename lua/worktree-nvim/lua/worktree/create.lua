@@ -18,6 +18,12 @@ function M.run()
   local actions = require("telescope.actions")
   local action_state = require("telescope.actions.state")
   local previewers = require("telescope.previewers")
+  local Sorter = require("telescope.sorters")
+
+  -- A no-op sorter that always shows all entries (used in step 2 & 3)
+  local empty_sorter = Sorter.new({
+    scoring_function = function() return 0 end,
+  })
 
   local branches = utils.get_branches()
   if #branches == 0 then
@@ -69,6 +75,8 @@ function M.run()
           state.step = 2
 
           local current_picker = action_state.get_current_picker(prompt_bufnr)
+          -- Disable filtering so prompt input is treated as worktree name, not search
+          current_picker.sorter = empty_sorter
           current_picker:refresh(
             finders.new_table({
               results = {
@@ -87,6 +95,7 @@ function M.run()
 
           if name == "" then
             -- Refresh with a hint instead of vim.notify
+            current_picker.sorter = empty_sorter
             current_picker:refresh(
               finders.new_table({ results = { "⚠ Worktree name cannot be empty" } }),
               { reset_prompt = true }
@@ -94,19 +103,22 @@ function M.run()
             return
           end
 
-          -- Execute creation and show result in the same window
-          local result_lines = M._create_worktree(state.base_branch, name, project_name)
-          state.step = 3
-
-          current_picker:refresh(
-            finders.new_table({ results = result_lines }),
-            { reset_prompt = true }
-          )
-          current_picker.prompt_border:change_title("Done — press <Esc> to close")
-        end
-        -- step 3: any Enter also just closes
-        if state.step == 3 then
+          -- Execute creation and switch to the new worktree
+          local result = M._create_worktree(state.base_branch, name, project_name)
           actions.close(prompt_bufnr)
+
+          if result.ok then
+            if wt_config.switch_after_create then
+              require("worktree.switch")._switch_to(result.path, name)
+            else
+              vim.notify(
+                string.format("Worktree created: %s\nPath: %s", name, result.path),
+                vim.log.levels.INFO
+              )
+            end
+          else
+            vim.notify(table.concat(result.lines, "\n"), vim.log.levels.ERROR)
+          end
         end
       end)
       return true
@@ -116,11 +128,11 @@ function M.run()
   picker:find()
 end
 
---- Execute git worktree add. Returns result lines for display.
+--- Execute git worktree add. Returns result table.
 --- @param base_branch string
 --- @param name string
 --- @param project_name string
---- @return string[]
+--- @return table { ok: boolean, path: string|nil, lines: string[] }
 function M._create_worktree(base_branch, name, project_name)
   local wt_config = require("worktree").config
   local worktree_dir = wt_config.base_path .. "/" .. project_name .. "_" .. name
@@ -128,9 +140,8 @@ function M._create_worktree(base_branch, name, project_name)
 
   if vim.fn.isdirectory(expanded_dir) == 1 then
     return {
-      "✗ Failed: directory already exists",
-      "",
-      "  " .. expanded_dir,
+      ok = false,
+      lines = { "Directory already exists: " .. expanded_dir },
     }
   end
 
@@ -139,18 +150,11 @@ function M._create_worktree(base_branch, name, project_name)
   })
 
   if cmd_ok then
-    return {
-      "✓ Worktree created successfully",
-      "",
-      "  Branch: " .. name,
-      "  Base:   " .. base_branch,
-      "  Path:   " .. expanded_dir,
-    }
+    return { ok = true, path = expanded_dir }
   else
     return {
-      "✗ Failed to create worktree",
-      "",
-      "  " .. output,
+      ok = false,
+      lines = { "Failed to create worktree:", output },
     }
   end
 end
