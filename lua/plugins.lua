@@ -89,7 +89,7 @@ require("lazy").setup {
 
   -- zoom window
   {
-    dir = "~/.config/nvim/lua/zoom-nvim",
+    "HDX180/zoom-nvim",
   },
 
   -- colorscheme
@@ -161,7 +161,7 @@ require("lazy").setup {
 
   -- git worktree
   {
-    dir = "~/.config/nvim/lua/worktree-nvim",
+    "HDX180/worktree-nvim",
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
