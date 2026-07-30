@@ -7,7 +7,7 @@ end
 -- require 'nvim-treesitter.install'.compilers = { "clang++" }
 
 configs.setup {
-  ensure_installed = { "cpp", "c", "vimdoc", "python", "go", "markdown", "json", "yaml", "bash", "lua" }, 
+  ensure_installed = { "cpp", "c", "vimdoc", "python", "go", "markdown", "json", "yaml", "bash", "lua" },
   sync_install = false,
   ignore_install = { "" },
   highlight = {

@@ -14,7 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup {
 
-  { "nvim-treesitter/nvim-treesitter" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    lazy = false,
+    build = ":TSUpdate",
+  },
   -- 显示类/函数
   { "romgrk/nvim-treesitter-context" },
 

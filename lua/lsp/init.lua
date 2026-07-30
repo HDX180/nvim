@@ -1,7 +1,7 @@
 -- require("lsp.lsp-installer")
 require("lsp.lsp-mason")
 require("lsp.nvim-lspconfig")
-require'lspconfig'.pylsp.setup {}
-require'lspconfig'.gopls.setup {}
-require'lspconfig'.lua_ls.setup {}
-require'lspconfig'.clangd.setup {}
+
+-- Neovim 0.11 原生 LSP:server 定义由 nvim-lspconfig 在 runtimepath 的 lsp/ 目录提供,
+-- 直接 enable 即可(替代已弃用的 require'lspconfig'.xxx.setup{})。
+vim.lsp.enable({ "pylsp", "gopls", "lua_ls", "clangd" })
