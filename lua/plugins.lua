@@ -164,9 +164,9 @@ require("lazy").setup {
   -- 代码缩进线
   { "lukas-reineke/indent-blankline.nvim" },
 
-  -- git worktree (本地开发副本)
+  -- git worktree
   {
-    dir = "~/.config/nvim/lua/worktree-nvim",
+    "HDX180/worktree-nvim",
     dependencies = {
       "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
