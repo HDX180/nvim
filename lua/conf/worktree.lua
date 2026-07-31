@@ -8,5 +8,5 @@ worktree.setup({
 })
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<leader>wa", "<cmd>WorktreeCreate<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>ww", "<cmd>WorktreeSwitch<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>ww", "<cmd>WorktreeManage<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>wa", "<cmd>WorktreeManage<cr>", opts)
