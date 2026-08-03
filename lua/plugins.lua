@@ -43,7 +43,7 @@ require("lazy").setup {
   },
   { "nvim-lualine/lualine.nvim" },
 
-  { "phaazon/hop.nvim" },
+  { "yuki-yano/hop.nvim" },
   { "numToStr/Comment.nvim" },
   { "mg979/vim-visual-multi" },
   { "jiangmiao/auto-pairs" },
